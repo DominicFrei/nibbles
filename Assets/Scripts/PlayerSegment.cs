@@ -43,7 +43,7 @@ public class PlayerSegment : MonoBehaviour
             moveTo.transform.position = new Vector3(Mathf.Round(moveTo.transform.position.x), Mathf.Round(moveTo.transform.position.y), 0.0f);
         }
 
-        Vector3 movement = (moveTo.transform.position - transform.position).normalized * GameplayConstants.PlayerSegmentSpeed * Time.deltaTime;
+        Vector3 movement = (moveTo.transform.position - transform.position).normalized * GameplayConstants.PlayerSpeed * Time.deltaTime;
         transform.Translate(movement);
 
         transitionElement1.transform.position = (objectToFollow.transform.position + moveTo.transform.position) / 2;

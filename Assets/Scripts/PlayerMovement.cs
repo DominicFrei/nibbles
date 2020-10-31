@@ -6,17 +6,22 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection = default;
 
+    void Start()
+    {
+        currentMoveToReference.transform.position = transform.position;
+    }
+
     private void Update()
     {
         float horizontalInput = Input.GetAxisRaw(RectTransform.Axis.Horizontal.ToString());
         float verticalInput = Input.GetAxisRaw(RectTransform.Axis.Vertical.ToString());
 
-        if (horizontalInput != 0.0f)
+        if (horizontalInput != 0.0f && moveDirection != Vector3.right && moveDirection != Vector3.left)
         {
             Vector3 newMoveTo = Vector3.right * horizontalInput;
             moveDirection = newMoveTo;
         }
-        else if (verticalInput != 0.0f)
+        else if (verticalInput != 0.0f && moveDirection != Vector3.up && moveDirection != Vector3.down)
         {
             Vector3 newMoveTo = Vector3.up * verticalInput;
             moveDirection = newMoveTo;
