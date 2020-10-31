@@ -36,9 +36,16 @@ public class GameManager : MonoBehaviour
     public void LootGathered(Loot loot)
     {
         GameObject playerSegment = spawnManagerPlayerSegments.AddPlayerSegment(lastAddedPlayerSegment);
+
+        // The first two segment need different tags to make sure we can distinguish them since they easily
+        // have contact with the head element and would end in an unwanted collision.
         if (lastAddedPlayerSegment.CompareTag("player"))
         {
             playerSegment.tag = "firstPlayerSegment";
+        }
+        else if (lastAddedPlayerSegment.CompareTag("firstPlayerSegment"))
+        {
+            playerSegment.tag = "secondPlayerSegment";
         }
         lastAddedPlayerSegment = playerSegment;
         Destroy(loot.gameObject);
