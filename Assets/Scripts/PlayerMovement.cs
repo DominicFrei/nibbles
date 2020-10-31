@@ -3,36 +3,33 @@
 public class PlayerMovement : MonoBehaviour
 {
     float speed = 5.0f;
-    [SerializeField] GameObject moveToPoint = default;
-    Vector3 lastMovementDirection = default;
+    [SerializeField] GameObject currentMoveToReference = default;
+    Vector3 moveDirection = default;
 
     private void Update()
     {
-        if (Vector3.Distance(moveToPoint.transform.position, transform.position) < 0.05f)
+        float horizontalInput = Input.GetAxisRaw(RectTransform.Axis.Horizontal.ToString());
+        float verticalInput = Input.GetAxisRaw(RectTransform.Axis.Vertical.ToString());
+
+        if (horizontalInput != 0.0f)
         {
-            float verticalInput = Input.GetAxisRaw(RectTransform.Axis.Vertical.ToString());
-            float horizontalInput = Input.GetAxisRaw(RectTransform.Axis.Horizontal.ToString());
-
-            if (horizontalInput != 0.0f)
-            {
-                Vector3 newMoveTo = new Vector3(horizontalInput, 0.0f, 0.0f);
-                moveToPoint.transform.position += newMoveTo;
-                lastMovementDirection = newMoveTo;
-            }
-            else if (verticalInput != 0.0f)
-            {
-                Vector3 newMoveTo = new Vector3(0.0f, verticalInput, 0.0f);
-                moveToPoint.transform.position += newMoveTo;
-                lastMovementDirection = newMoveTo;
-            }
-            else
-            {
-                moveToPoint.transform.position += lastMovementDirection;
-            }
-
+            Vector3 newMoveTo = Vector3.right * horizontalInput;
+            moveDirection = newMoveTo;
+        }
+        else if (verticalInput != 0.0f)
+        {
+            Vector3 newMoveTo = Vector3.up * verticalInput;
+            moveDirection = newMoveTo;
         }
 
-        Vector3 movement = (moveToPoint.transform.position - transform.position).normalized * speed * Time.deltaTime;
+        // First we adjust the position of the moveTo point if necessary.
+        if (Vector3.Distance(currentMoveToReference.transform.position, transform.position) < 0.05f)
+        {
+            currentMoveToReference.transform.position += moveDirection;
+        }
+
+        // At the end we move the player (head) towards the moveTo point.
+        Vector3 movement = (currentMoveToReference.transform.position - transform.position).normalized * speed * Time.deltaTime;
         transform.Translate(movement);
     }
 
