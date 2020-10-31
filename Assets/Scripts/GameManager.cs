@@ -1,13 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    UIManager uiManager = default;
     SpawnManagerPlayerSegments spawnManagerPlayerSegments = default;
     SpawnManagerLoot spawnManagerLoot = default;
-    GameObject lastAddedPlayerSegment = default;    
+    GameObject lastAddedPlayerSegment = default;
+
+    int currentAmountOfLootObjects = default;
 
     void Awake()
     {
+        uiManager = GameObject.FindObjectOfType<UIManager>();
+        if (!uiManager)
+        {
+            Debug.Log("uiManager must not be null.");
+        }
         spawnManagerPlayerSegments = GameObject.FindObjectOfType<SpawnManagerPlayerSegments>();
         if (!spawnManagerPlayerSegments)
         {
@@ -29,8 +38,13 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < GameplayConstants.InitialAmountOfLoot; i++)
         {
-            spawnManagerLoot.SpawnLoot();
+            bool lootSpawned = spawnManagerLoot.SpawnLoot();
+            if (!lootSpawned)
+            {
+                Debug.Log("Initial loot could not be spawned.");
+            }
         }
+        currentAmountOfLootObjects = GameplayConstants.InitialAmountOfLoot;
     }
 
     public void LootGathered(Loot loot)
@@ -48,18 +62,48 @@ public class GameManager : MonoBehaviour
             playerSegment.tag = "secondPlayerSegment";
         }
         lastAddedPlayerSegment = playerSegment;
+
         Destroy(loot.gameObject);
-        spawnManagerLoot.SpawnLoot();        
+        bool lootSpawned = spawnManagerLoot.SpawnLoot();
+        if (!lootSpawned)
+        {
+            currentAmountOfLootObjects--;
+        }
     }
 
     public void PlayerCollidedWithWall()
     {
-        // TODO: For now we just stop the game. Add a RESTART (R) and END GAME (Q or E) option.
-        Time.timeScale = 0.0f;
+        ShowGameEndingText();
     }
 
     public void PlayerCollidedWithPlayerSegment()
     {
-        Time.timeScale = 0.0f;
+        ShowGameEndingText();
     }
+
+    void ShowGameEndingText()
+    {
+        Time.timeScale = 0.0f;
+        if (0 == currentAmountOfLootObjects)
+        {
+            // No loot left, player won the game.
+            uiManager.showGameWonText();
+        }
+        else
+        {
+            uiManager.showGameOverText();
+        }
+    }
+
+    public void PlayerClickedRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1.0f;
+    }
+
+    public void PlayerClickedQuit()
+    {
+        SceneManager.LoadScene("End");
+    }
+
 }

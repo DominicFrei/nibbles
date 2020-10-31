@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpawnManagerLoot : MonoBehaviour
 {
-    [SerializeField] Loot lootPrefab = default;    
+    [SerializeField] Loot lootPrefab = default;
 
     void Awake()
     {
@@ -13,7 +13,7 @@ public class SpawnManagerLoot : MonoBehaviour
         }
     }
 
-    public void SpawnLoot()
+    public bool SpawnLoot()
     {
         List<Vector3> availablePositions = GenerateMapWithUnoccupiedPostions();
         if (availablePositions.Count != 0)
@@ -21,10 +21,12 @@ public class SpawnManagerLoot : MonoBehaviour
             int randomLocationIndex = Random.Range(0, availablePositions.Count);
             Vector3 lootSpawnPosition = availablePositions[randomLocationIndex];
             _ = Instantiate(lootPrefab, lootSpawnPosition, Quaternion.identity);
+            return true;
         }
         else
         {
             Debug.Log("No unoccupied positions left. Player won.");
+            return false;
         }
     }
 
