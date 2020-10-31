@@ -3,8 +3,8 @@
 public class PlayerSegment : MonoBehaviour
 {
     GameObject objectToFollow = default;
-    Vector3 lastMoveDirection = default;
-    float speed = 5.0f;
+    Vector3 currentMoveDirection = default;
+    readonly float speed = 5.0f;
 
     void Update()
     {
@@ -12,25 +12,29 @@ public class PlayerSegment : MonoBehaviour
         {
             if (Vector3.Distance(objectToFollow.transform.position, transform.position) > 0.95f)
             {
-                lastMoveDirection = objectToFollow.transform.position;
+                currentMoveDirection = objectToFollow.transform.position;
             }
         }
         else
         {
             Debug.Log("objectToFollow does not exist anymore. Player probably hit the wall.");
             Destroy(gameObject);
-        }        
+        }
 
-        Vector3 movement = (lastMoveDirection - transform.position).normalized * speed * Time.deltaTime;
+        currentMoveDirection = new Vector3(Mathf.Round(currentMoveDirection.x), Mathf.Round(currentMoveDirection.y), 0.0f);
+        Vector3 movement = (currentMoveDirection - transform.position).normalized * speed * Time.deltaTime;
         transform.Translate(movement);
     }
 
     public void Instantiate(GameObject objectToFollow)
     {
-        if (!objectToFollow)
+        if (objectToFollow)
+        {
+            this.objectToFollow = objectToFollow;
+        }
+        else
         {
             Debug.Log("objectToFollow must not be null.");
         }
-        this.objectToFollow = objectToFollow;
     }
 }
