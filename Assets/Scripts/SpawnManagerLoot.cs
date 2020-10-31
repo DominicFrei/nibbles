@@ -3,12 +3,7 @@ using UnityEngine;
 
 public class SpawnManagerLoot : MonoBehaviour
 {
-    [SerializeField] Loot lootPrefab = default;
-
-    readonly int playingFieldBoundsLeft = 0;
-    readonly int playingFieldBoundsRight = 16;
-    readonly int playingFieldBoundsUpper = 8;
-    readonly int playingFieldBoundsLower = 0;
+    [SerializeField] Loot lootPrefab = default;    
 
     void Awake()
     {
@@ -37,8 +32,8 @@ public class SpawnManagerLoot : MonoBehaviour
     // if a position is already used or not in order to spawn loot only at unoccupied positions.
     List<Vector3> GenerateMapWithUnoccupiedPostions()
     {
-        int width = playingFieldBoundsRight - playingFieldBoundsLeft + 1;
-        int height = playingFieldBoundsUpper - playingFieldBoundsLower + 1;
+        int width = GameplayConstants.MapBounds.Right - GameplayConstants.MapBounds.Left + 1;
+        int height = GameplayConstants.MapBounds.Upper - GameplayConstants.MapBounds.Lower + 1;
 
         List<Vector3> availablePositions = new List<Vector3>();
 

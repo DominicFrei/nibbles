@@ -4,7 +4,6 @@ public class PlayerSegment : MonoBehaviour
 {
     GameObject objectToFollow = default;
     Vector3 currentMoveDirection = default;
-    readonly float speed = 5.0f;
 
     void Update()
     {
@@ -22,7 +21,7 @@ public class PlayerSegment : MonoBehaviour
         }
 
         currentMoveDirection = new Vector3(Mathf.Round(currentMoveDirection.x), Mathf.Round(currentMoveDirection.y), 0.0f);
-        Vector3 movement = (currentMoveDirection - transform.position).normalized * speed * Time.deltaTime;
+        Vector3 movement = (currentMoveDirection - transform.position).normalized * GameplayConstants.PlayerSpeed * Time.deltaTime;
         transform.Translate(movement);
     }
 

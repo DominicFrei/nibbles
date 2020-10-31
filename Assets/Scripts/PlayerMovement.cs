@@ -4,8 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] GameObject currentMoveToReference = default;
     
-    Vector3 moveDirection = default;
-    readonly float speed = 5.0f;
+    Vector3 moveDirection = default;    
 
     private void Update()
     {
@@ -30,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // At the end we move the player (head) towards the moveTo point.
-        Vector3 movement = (currentMoveToReference.transform.position - transform.position).normalized * speed * Time.deltaTime;
+        Vector3 movement = (currentMoveToReference.transform.position - transform.position).normalized * GameplayConstants.PlayerSpeed * Time.deltaTime;
         transform.Translate(movement);
     }
 

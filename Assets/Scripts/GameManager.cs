@@ -4,9 +4,7 @@ public class GameManager : MonoBehaviour
 {
     SpawnManagerPlayerSegments spawnManagerPlayerSegments = default;
     SpawnManagerLoot spawnManagerLoot = default;
-    GameObject lastAddedPlayerSegment = default;
-
-    readonly int initialAmountOfLoot = 3;
+    GameObject lastAddedPlayerSegment = default;    
 
     void Awake()
     {
@@ -29,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < initialAmountOfLoot; i++)
+        for (int i = 0; i < GameplayConstants.InitialAmountOfLoot; i++)
         {
             spawnManagerLoot.SpawnLoot();
         }
