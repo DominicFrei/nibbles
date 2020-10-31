@@ -9,6 +9,7 @@
     }    
 
     static public readonly float PlayerSpeed = 5.0f;
+    static public readonly float PlayerSegmentSpeed = PlayerSpeed;
 
     static public readonly int InitialAmountOfLoot = 3;
 }

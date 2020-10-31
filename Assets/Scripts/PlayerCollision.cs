@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("wall"))
         {
             gameManager.PlayerCollidedWithWall();
-        }        
+        }
     }
 
     void OnTriggerEnter(Collider other)

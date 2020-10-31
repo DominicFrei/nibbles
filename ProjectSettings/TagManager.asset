@@ -8,6 +8,7 @@ TagManager:
   - player
   - playerSegment
   - firstPlayerSegment
+  - secondPlayerSegment
   layers:
   - Default
   - TransparentFX
