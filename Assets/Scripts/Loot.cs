@@ -15,7 +15,7 @@ public class Loot : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("player"))
+        if (other.gameObject.CompareTag("player"))
         {
             gameManager.LootGathered();
             Destroy(gameObject);

@@ -4,7 +4,7 @@ public class PlayerCollision : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("wall"))
+        if (collision.gameObject.CompareTag("wall"))
         {
             Destroy(gameObject);
         }
