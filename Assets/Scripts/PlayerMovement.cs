@@ -2,9 +2,10 @@
 
 public class PlayerMovement : MonoBehaviour
 {
-    float speed = 5.0f;
     [SerializeField] GameObject currentMoveToReference = default;
+    
     Vector3 moveDirection = default;
+    readonly float speed = 5.0f;
 
     private void Update()
     {

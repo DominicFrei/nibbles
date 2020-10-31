@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 125762727}
   - component: {fileID: 125762726}
+  - component: {fileID: 125762728}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -153,7 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSegmentPrefab: {fileID: 762014844, guid: 3d19ce0fd4112c4408f71f17d5ff2a0d, type: 3}
-  lootPrefab: {fileID: 8818702643733323169, guid: 9860155dcb1631b4680fbdb917228f16, type: 3}
 --- !u!4 &125762727
 Transform:
   m_ObjectHideFlags: 0
@@ -168,6 +168,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125762728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125762725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0e618f379c62044a2dd550049fa496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootPrefab: {fileID: 8818702643733323169, guid: 9860155dcb1631b4680fbdb917228f16, type: 3}
 --- !u!1 &304297315
 GameObject:
   m_ObjectHideFlags: 0

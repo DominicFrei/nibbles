@@ -1,52 +1,30 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManagerLoot : MonoBehaviour
 {
-    [SerializeField] PlayerSegment playerSegmentPrefab = default;
     [SerializeField] Loot lootPrefab = default;
 
-    int playingFieldBoundsLeft = 0;
-    int playingFieldBoundsRight = 16;
-    int playingFieldBoundsUpper = 8;
-    int playingFieldBoundsLower = 0;
+    readonly int playingFieldBoundsLeft = 0;
+    readonly int playingFieldBoundsRight = 16;
+    readonly int playingFieldBoundsUpper = 8;
+    readonly int playingFieldBoundsLower = 0;
 
     void Awake()
     {
-        if (!playerSegmentPrefab)
+        if (!lootPrefab)
         {
-            Debug.Log("Could not retrieve PlayerSegment.");
+            Debug.Log("lootPrefab must not be null.");
         }
     }
 
-    void Start()
-    {
-        SpawnLoot();
-        SpawnLoot();
-    }
-
-    public GameObject AddPlayerSegment(GameObject objectToFollow)
-    {
-        // Spawn a new player segment.
-        Vector3 spawnLocation = objectToFollow.transform.position;
-        Vector3 roundedSpawnLocation = new Vector3(Mathf.Round(spawnLocation.x), Mathf.Round(spawnLocation.y), Mathf.Round(spawnLocation.z));
-        PlayerSegment playerSegmentInstance = Instantiate(playerSegmentPrefab, roundedSpawnLocation, Quaternion.identity);
-        playerSegmentInstance.Instantiate(objectToFollow);
-
-        // Spawn a new loot object.
-        SpawnLoot();
-
-        return playerSegmentInstance.gameObject;
-    }
-
-    void SpawnLoot()
+    public void SpawnLoot()
     {
         List<Vector3> availablePositions = GenerateMapWithUnoccupiedPostions();
         if (availablePositions.Count != 0)
         {
-            int randomLocationIndex = UnityEngine.Random.Range(0, availablePositions.Count);
+            int randomLocationIndex = Random.Range(0, availablePositions.Count);
             Vector3 lootSpawnPosition = availablePositions[randomLocationIndex];
-            Debug.Log("Spawning loot at: " + lootSpawnPosition);
             _ = Instantiate(lootPrefab, lootSpawnPosition, Quaternion.identity);
         }
         else

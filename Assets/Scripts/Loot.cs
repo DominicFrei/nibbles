@@ -17,8 +17,7 @@ public class Loot : MonoBehaviour
     {
         if (other.gameObject.CompareTag("player"))
         {
-            gameManager.LootGathered();
-            Destroy(gameObject);
+            gameManager.LootGathered(this);
         }
     }
 }
