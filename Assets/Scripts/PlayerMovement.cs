@@ -3,8 +3,8 @@
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] GameObject currentMoveToReference = default;
-    
-    Vector3 moveDirection = default;    
+
+    Vector3 moveDirection = default;
 
     private void Update()
     {
